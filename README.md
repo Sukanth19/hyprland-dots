@@ -12,8 +12,8 @@ My Hyprland + Quickshell setup. It's a **fork of [end-4/dots-hyprland](https://g
 | Left sidebar, Media tab (`Super + A`) | Left sidebar, Emoji tab (`Super + .`) |
 | ![Drop-down scratchpad terminal](screenshots/scratchpadterminal.png) | ![Kitty terminal](screenshots/terminal.png) |
 | Drop-down scratchpad terminal (`` Super + ` ``) | Kitty |
-| ![Obsidian](screenshots/obsidian.png) | |
-| Obsidian at 0.96 opacity | |
+| ![Obsidian](screenshots/obsidian.png) | ![Spotify](screenshots/spotify.png) |
+| Obsidian at 0.96 opacity | Spotify at 0.96 opacity |
 
 ## Credits
 
