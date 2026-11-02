@@ -9,6 +9,9 @@ hl.window_rule({ match = { class = "^(scratchterm)$" }, workspace = "special:ter
 hl.window_rule({ match = { class = "^([Ss]potify)$" }, workspace = "5" })
 hl.window_rule({ match = { title = "^(Spotify( Free| Premium)?)$" }, workspace = "5" })
 
+-- Spotify: same transparency as Obsidian
+hl.window_rule({ match = { class = "^([Ss]potify)$" }, opacity = "0.96" })
+
 -- Obsidian: a bit see-through (less than kitty)
 hl.window_rule({ match = { class = "^(md\\.obsidian\\.Obsidian|obsidian)$" }, opacity = "0.96" })
 

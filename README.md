@@ -34,7 +34,7 @@ Most of my changes live in `hypr/custom/`, which end-4's setup keeps for user ov
 | `Super + Scroll` | Workspace scroll direction inverted |
 
 ### Window rules
-- Spotify always opens on workspace 5
+- Spotify always opens on workspace 5, slightly transparent (0.96)
 - Obsidian always opens on workspace 4, slightly transparent (0.96)
 - Scratchpad terminal: floating, centered, 70% × 60% of the monitor
 
