@@ -4,6 +4,8 @@ My Hyprland + Quickshell setup. It's a **fork of [end-4/dots-hyprland](https://g
 
 ## Screenshots
 
+![Bar with pill-style workspace switcher](screenshots/bar.png)
+
 ![Left sidebar: system tab](screenshots/systemsidebar.png)
 
 | | |
@@ -39,7 +41,8 @@ Each folder starts with a commit containing end-4's original files, unmodified. 
 commit after it, so the diffs show exactly what I wrote:
 
 - **Hyprland:** [see diff](https://github.com/Sukanth19/hyprland-dots/compare/109730a0ed32ac89a4db26a82facc123fdbc2bbf...3cfbc3d466fd5fd3447ccbf555d4a4cdcd11e260) (`git diff 109730a 3cfbc3d`)
-- **Quickshell:** [see diff](https://github.com/Sukanth19/hyprland-dots/compare/ae2b23e7a15519c1474b54f18432d97ede45f492...2b12ab73cbb15bb6acf9e40a8826240f2e7a0c4a) (`git diff ae2b23e 2b12ab7`)
+- **Quickshell:** [see diff](https://github.com/Sukanth19/hyprland-dots/compare/ae2b23e7a15519c1474b54f18432d97ede45f492...2b12ab73cbb15bb6acf9e40a8826240f2e7a0c4a) (`git diff ae2b23e 2b12ab7`),
+  plus the [pill workspace switcher](https://github.com/Sukanth19/hyprland-dots/commit/3b7eaf1797b13f88eb44973b3b9c360a738aa903)
 
 ### Quickshell
 - **Left sidebar: 3 new tabs**, written from scratch:
@@ -47,10 +50,13 @@ commit after it, so the diffs show exactly what I wrote:
   - **Emoji**: searchable emoji picker with recents
   - **System**: CPU / memory / GPU usage and temps, history graph, disk, battery, network, uptime, fans and top processes
 - New `sidebarLeftMedia` / `sidebarLeftEmoji` global shortcuts that open the sidebar straight on a given tab, or close it if that tab is already showing
+- **Bar: pill-style workspace switcher**: plain workspace numbers with a pill that slides to the active one,
+  empty workspaces dimmed, hover highlight. Scroll to switch, right-click for the overview
 - Bar: the screen-record button turns red with a stop icon while `wf-recorder` is running
 
-Files: `sidebarLeft/Media.qml`, `sidebarLeft/EmojiPicker.qml` and `sidebarLeft/SystemMonitor.qml` (new), plus
-edits to `SidebarLeft.qml`, `SidebarLeftContent.qml` and `bar/UtilButtons.qml`.
+Files: `sidebarLeft/Media.qml`, `sidebarLeft/EmojiPicker.qml`, `sidebarLeft/SystemMonitor.qml` and
+`bar/PillWorkspaces.qml` (new), plus edits to `SidebarLeft.qml`, `SidebarLeftContent.qml`,
+`bar/BarContent.qml` and `bar/UtilButtons.qml`.
 
 ### Hyprland keybinds
 | Key | Action |
@@ -85,7 +91,7 @@ Then copy my files over (back up your own first):
 ```bash
 cp -r hypr/custom ~/.config/hypr/
 cp -r quickshell/ii/modules/ii/sidebarLeft ~/.config/quickshell/ii/modules/ii/
-cp quickshell/ii/modules/ii/bar/UtilButtons.qml ~/.config/quickshell/ii/modules/ii/bar/
+cp quickshell/ii/modules/ii/bar/{UtilButtons,BarContent,PillWorkspaces}.qml ~/.config/quickshell/ii/modules/ii/bar/
 ```
 
 The `Super + A` / `Super + .` keybinds need the quickshell sidebar files, so copy both.
