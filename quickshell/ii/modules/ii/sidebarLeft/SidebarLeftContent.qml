@@ -1,3 +1,4 @@
+import qs
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
@@ -17,11 +18,44 @@ Item {
     property bool animeEnabled: Config.options.policies.weeb !== 0
     property bool animeCloset: Config.options.policies.weeb === 2
     property var tabButtonList: [
+        {"icon": "music_note", "name": Translation.tr("Media")},
+        {"icon": "mood", "name": Translation.tr("Emoji")},
+        {"icon": "monitoring", "name": Translation.tr("System")},
         ...(root.aiChatEnabled ? [{"icon": "neurology", "name": Translation.tr("Intelligence")}] : []),
         ...(root.translatorEnabled ? [{"icon": "translate", "name": Translation.tr("Translator")}] : []),
         ...((root.animeEnabled && !root.animeCloset) ? [{"icon": "bookmark_heart", "name": Translation.tr("Anime")}] : [])
     ]
     property int tabCount: swipeView.count
+
+    // Open the sidebar straight on the Emoji tab (Super + .)
+    function toggleTab(name) {
+        if (GlobalStates.sidebarLeftOpen && root.tabButtonList[swipeView.currentIndex]?.name === name)
+            GlobalStates.sidebarLeftOpen = false;
+        else
+            root.openTab(name);
+    }
+    property int pendingTab: -1
+    function openTab(name) {
+        const i = root.tabButtonList.findIndex(t => t.name === name);
+        if (i < 0) return;
+        root.pendingTab = i;
+        GlobalStates.sidebarLeftOpen = true;
+        switchTimer.restart();
+    }
+    Timer {
+        id: switchTimer
+        interval: 60
+        onTriggered: {
+            tabBar.setCurrentIndex(root.pendingTab);
+            swipeView.setCurrentIndex(root.pendingTab);
+            focusTimer.restart();
+        }
+    }
+    Timer {
+        id: focusTimer
+        interval: 250
+        onTriggered: root.focusActiveItem()
+    }
 
     function focusActiveItem() {
         swipeView.currentItem.forceActiveFocus()
@@ -84,14 +118,29 @@ Item {
                 }
 
                 contentChildren: [
+                    media.createObject(),
+                    emojiPicker.createObject(),
+                    systemMonitor.createObject(),
                     ...(root.aiChatEnabled ? [aiChat.createObject()] : []),
                     ...(root.translatorEnabled ? [translator.createObject()] : []),
-                    ...((root.tabButtonList.length === 0 || (!root.aiChatEnabled && !root.translatorEnabled && root.animeCloset)) ? [placeholder.createObject()] : []),
+                    ...((root.tabButtonList.length === 0) ? [placeholder.createObject()] : []),
                     ...(root.animeEnabled ? [anime.createObject()] : []),
                 ]
             }
         }
 
+        Component {
+            id: media
+            Media {}
+        }
+        Component {
+            id: emojiPicker
+            EmojiPicker {}
+        }
+        Component {
+            id: systemMonitor
+            SystemMonitor {}
+        }
         Component {
             id: aiChat
             AiChat {}

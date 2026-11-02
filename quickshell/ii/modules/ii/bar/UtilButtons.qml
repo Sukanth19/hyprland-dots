@@ -1,9 +1,11 @@
 import qs
 import qs.modules.common
 import qs.modules.common.widgets
+import qs.modules.common.functions
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Io
 import Quickshell.Hyprland
 import Quickshell.Services.Pipewire
 import Quickshell.Services.UPower
@@ -13,6 +15,21 @@ Item {
     property bool borderless: Config.options.bar.borderless
     implicitWidth: rowLayout.implicitWidth + rowLayout.spacing * 2
     implicitHeight: rowLayout.implicitHeight
+
+    // Screen recording state (red stop button while wf-recorder runs)
+    property bool isRecording: false
+    Process {
+        id: recordCheck
+        command: ["pgrep", "-x", "wf-recorder"]
+        onExited: (exitCode, exitStatus) => { root.isRecording = (exitCode === 0) }
+    }
+    Timer {
+        running: Config.options.bar.utilButtons.showScreenRecord
+        interval: 1000
+        repeat: true
+        triggeredOnStart: true
+        onTriggered: if (!recordCheck.running) recordCheck.running = true
+    }
 
     RowLayout {
         id: rowLayout
@@ -42,12 +59,14 @@ Item {
             sourceComponent: CircleUtilButton {
                 Layout.alignment: Qt.AlignVCenter
                 onClicked: Quickshell.execDetached([Directories.recordScriptPath])
+                colBackground: root.isRecording ? Appearance.m3colors.m3error : ColorUtils.transparentize(Appearance.colors.colLayer1Hover, 1)
+                colBackgroundHover: root.isRecording ? Qt.lighter(Appearance.m3colors.m3error, 1.15) : Appearance.colors.colLayer1Hover
                 MaterialSymbol {
                     horizontalAlignment: Qt.AlignHCenter
                     fill: 1
-                    text: "videocam"
+                    text: root.isRecording ? "stop" : "videocam"
                     iconSize: Appearance.font.pixelSize.large
-                    color: Appearance.colors.colOnLayer2
+                    color: root.isRecording ? Appearance.m3colors.m3onError : Appearance.colors.colOnLayer2
                 }
             }
         }

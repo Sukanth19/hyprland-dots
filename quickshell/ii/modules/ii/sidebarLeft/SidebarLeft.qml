@@ -217,6 +217,18 @@ Scope { // Scope
     }
 
     GlobalShortcut {
+        name: "sidebarLeftEmoji"
+        description: "Opens left sidebar on the Emoji tab"
+        onPressed: root.sidebarContent.toggleTab(Translation.tr("Emoji"))
+    }
+
+    GlobalShortcut {
+        name: "sidebarLeftMedia"
+        description: "Opens left sidebar on the Media tab"
+        onPressed: root.sidebarContent.toggleTab(Translation.tr("Media"))
+    }
+
+    GlobalShortcut {
         name: "sidebarLeftToggle"
         description: "Toggles left sidebar on press"
 
