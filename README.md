@@ -2,6 +2,19 @@
 
 My personal Hyprland config, built on top of **[end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)** ("illogical-impulse").
 
+## Screenshots
+
+![Left sidebar: system tab](screenshots/systemsidebar.png)
+
+| | |
+|---|---|
+| ![Left sidebar: media tab](screenshots/sidebar.png) | ![Left sidebar: emoji tab](screenshots/emoji.png) |
+| Left sidebar, Media tab (`Super + A`) | Left sidebar, Emoji tab (`Super + .`) |
+| ![Drop-down scratchpad terminal](screenshots/scratchpadterminal.png) | ![Kitty terminal](screenshots/terminal.png) |
+| Drop-down scratchpad terminal (`` Super + ` ``) | Kitty |
+| ![Obsidian](screenshots/obsidian.png) | |
+| Obsidian at 0.96 opacity | |
+
 ## Credits
 
 Almost everything here is the work of **[end-4](https://github.com/end-4)** and the contributors to
